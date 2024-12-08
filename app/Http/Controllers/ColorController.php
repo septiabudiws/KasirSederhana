@@ -65,16 +65,29 @@ class ColorController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'color' => 'required|unique:warna,warna'
+        ], [
+            'color.unique' =>'Warna Sudah Ada'
+        ]);
+
+        $data =[
+            'warna' =>$request->color
+        ];
+
+        ColorModel::where('id', $id)->update($data);
+        return redirect('/color')->with('succes', 'Warna Berhasil Diubah');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        ColorModel::where('id', $id)->delete();
+
+        return redirect('/color')->with('success', 'Berhasil Menghapus Warna');
     }
 }

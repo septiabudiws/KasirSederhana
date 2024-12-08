@@ -64,9 +64,20 @@ class SizeController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'size' =>'required|unique:ukuran,ukuran'
+        ],[
+            'size.unique' => 'Ukuran Sudah Ada, Gunakan Ukuran Lain'
+        ]);
+
+        $data = [
+            'ukuran' =>$request->size
+        ];
+
+        SizeModel::where('id', $id)->update($data);
+        return redirect('/size')->with('succes', 'Ukuran Berhasil Diubah');
     }
 
     /**
@@ -74,6 +85,8 @@ class SizeController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        SizeModel::where('id', $id)->delete();
+
+        return redirect('/size')->with('success', 'Berhasil Mengapus Ukuran');
     }
 }

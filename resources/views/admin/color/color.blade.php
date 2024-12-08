@@ -14,7 +14,7 @@
           <div class="col-xl-12">
             <div class="mb-2">
               <button type="button" class="btn btn-primary waves-effect waves-light" data-bs-toggle="modal"
-                data-bs-target="#animationModal">Tambah Color</button>
+                data-bs-target="#animationModal">Tambah Warna</button>
             </div>
           </div>
           <div class="card">
@@ -50,12 +50,12 @@
                                 <div class="modal-body">
                                   <div class="row">
                                     <div class="col mb-6 mt-2">
-                                      <form action="{{ route('kategori.update', $get->id) }}" method="POST">
+                                      <form action="{{ route('color.update', $get->id) }}" method="POST">
                                         @csrf
                                         <div class="form-floating form-floating-outline">
-                                          <input type="text" id="nameAnimation" value="{{ $get->nama_kategori }}"
-                                            name="kategori" class="form-control" placeholder="Masukkan Kategori...">
-                                          <label for="nameAnimation">Nama Kategori</label>
+                                          <input type="text" id="nameAnimation" value="{{ $get->warna }}"
+                                            name="color" class="form-control" placeholder="Masukkan Nama Warna...">
+                                          <label for="nameAnimation">Warna</label>
                                         </div>
                                     </div>
                                   </div>
@@ -85,12 +85,12 @@
                                     aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                  Yakin ingin menghapus Kategori <b>{{ $get->nama_kategori }}</b>
+                                  Yakin ingin menghapus Warna <b>{{ $get->warna }}</b>
                                 </div>
                                 <div class="modal-footer">
                                   <button type="button" class="btn btn-secondary text-white"
                                     data-bs-dismiss="modal">Batal</button>
-                                  <a href="/kategori/hapus/{{ $get->id }}" class="btn btn-danger text-white">Ya!
+                                  <a href="/color/hapus/{{ $get->id }}" class="btn btn-danger text-white">Ya!
                                     Hapus</a>
                                 </div>
                               </div>

@@ -50,11 +50,11 @@
                                 <div class="modal-body">
                                   <div class="row">
                                     <div class="col mb-6 mt-2">
-                                      <form action="{{ route('kategori.update', $get->id) }}" method="POST">
+                                      <form action="{{ route('size.update', $get->id) }}" method="POST">
                                         @csrf
                                         <div class="form-floating form-floating-outline">
-                                          <input type="text" id="nameAnimation" value="{{ $get->nama_kategori }}"
-                                            name="kategori" class="form-control" placeholder="Masukkan Kategori...">
+                                          <input type="text" id="nameAnimation" value="{{ $get->ukuran }}"
+                                            name="size" class="form-control" placeholder="Masukkan Kategori...">
                                           <label for="nameAnimation">Nama Kategori</label>
                                         </div>
                                     </div>
@@ -85,12 +85,12 @@
                                     aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                  Yakin ingin menghapus Kategori <b>{{ $get->nama_kategori }}</b>
+                                  Yakin ingin menghapus ukuran <b>{{ $get->ukuran }}</b>
                                 </div>
                                 <div class="modal-footer">
                                   <button type="button" class="btn btn-secondary text-white"
                                     data-bs-dismiss="modal">Batal</button>
-                                  <a href="/kategori/hapus/{{ $get->id }}" class="btn btn-danger text-white">Ya!
+                                  <a href="/size/hapus/{{ $get->id }}" class="btn btn-danger text-white">Ya!
                                     Hapus</a>
                                 </div>
                               </div>

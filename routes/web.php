@@ -28,11 +28,15 @@ Route::get('/kategori/hapus/{id}', [KategoriController::class, 'destroy']);
 
 Route::get('/color', [ColorController::class, 'index']);
 Route::post('/color/tambah', [ColorController::class, 'store'])->name('color.store');
+Route::post('/color/edit/{id}', [ColorController::class, 'update'])->name('color.update');
+Route::get('/color/hapus/{id}', [ColorController::class, 'destroy']);
 
 Route::get('/size', [SizeController::class, 'index']);
 Route::post('/size/tambah', [SizeController::class, 'store'])->name('size.store');
+Route::post('/size/edit/{id}', [SizeController::class, 'update'])->name('size.update');
+Route::get('/size/hapus/{id}', [SizeController::class, 'destroy']);
 
 Route::get('/pakaian', [PakaianController::class, 'index']);
-Route::get('/pakaian_tambah', [PakaianController::class, 'create']);
+Route::get('/pakaian/tambah', [PakaianController::class, 'create']);
 
 
