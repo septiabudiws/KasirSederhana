@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\KategoriModel;
+use App\Models\SizeModel;
+use App\Models\WarnaModel;
 use Illuminate\Http\Request;
 
 class PakaianController extends Controller
@@ -19,7 +22,12 @@ class PakaianController extends Controller
      */
     public function create()
     {
-        return view('admin.pakaian.pakaian_tambah');
+
+        $size = SizeModel::all();
+        $color = WarnaModel::all();
+        $kategori = KategoriModel::all();
+
+        return view('admin.pakaian.pakaian_tambah', compact('size', 'color', 'kategori'));
     }
 
     /**

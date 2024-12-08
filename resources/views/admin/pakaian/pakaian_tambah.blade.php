@@ -10,67 +10,56 @@
                 <h2>Tambah Produk</h2>
               </div>
               <div class="card-body">
-                <form action="">
+                <form action="" method="POST">
                   <div class="mb-3 row">
                     <label for="example-text-input" class="col-md-2 col-form-label">Nama Produk</label>
                     <div class="col-md-10">
-                      <input class="form-control" type="text" value="Artisanal kale" id="example-text-input">
+                      <input class="form-control" type="text" placeholder="Masukkan Nama Produk ..." id="example-text-input">
                     </div>
                   </div>
                   <div class="mb-3 row">
                     <label class="col-md-2 col-form-label">Kategori Produk</label>
                     <div class="col-md-10">
                       <select class="form-select">
-                        <option>T-Shirt</option>
-                        <option>Jaket</option>
-                        <option>Celana</option>
+                        <option selected disabled value="">Pilih Kategori...</option>
+                        @foreach ($kategori as $item)
+                        <option value="{{ $item->id }}">{{ $item->nama_kategori }}</option>
+                        @endforeach
                       </select>
                     </div>
                   </div>
                   <div class="mb-3 row">
                     <label for="example-text-input2" class="col-md-2 col-form-label">Brand Produk</label>
                     <div class="col-md-10">
-                      <input class="form-control" type="text" value="Artisanal kale" id="example-text-input2">
+                      <input class="form-control" type="text" placeholder="Masukkan Nama Brand ..." id="example-text-input2">
                     </div>
                   </div>
                   <div class="mb-3 row">
                     <label for="example-text-input3" class="col-md-2 col-form-label">Harga</label>
                     <div class="col-md-10">
-                      <input class="form-control" type="number" placeholder="150000" id="example-text-input3">
+                      <input class="form-control" type="number" placeholder="contoh: 150000" id="example-text-input3">
                     </div>
                   </div>
                   <div class="mb-3 row">
                     <label for="example-text-input5" class="col-md-2 col-form-label">Ukuran Yang Tersedia</label>
                     <div class="col-md-10">
-                      <input class="form-check-input" type="checkbox" id="formCheck1">
-                      <label class="form-check-label" for="formCheck1">
-                        L
-                      </label>
-                      <input class="form-check-input" type="checkbox" id="formCheck2">
-                      <label class="form-check-label" for="formCheck2">
-                        XL
-                      </label>
-                      <input class="form-check-input" type="checkbox" id="formCheck3">
-                      <label class="form-check-label" for="formCheck3">
-                        XXL
-                      </label>
+                        @foreach ($size as $get)
+                        <input class="form-check-input" type="checkbox" id="formCheck{{ $get->id }}" name="size[]" value="{{ $get->id }}">
+                        <label class="form-check-label" for="formCheck{{ $get->id }}">
+                            {{ $get->ukuran }}
+                        </label>
+                        @endforeach
                     </div>
                   </div>
                   <div class="mb-3 row">
                     <label for="example-text-input6" class="col-md-2 col-form-label">Warna Yang Tersedia</label>
                     <div class="col-md-10">
-                      <input class="form-check-input" type="checkbox" id="formCheck4">
-                      <label class="form-check-label" for="formCheck4">
-                        Biru
-                      </label>
-                      <input class="form-check-input" type="checkbox" id="formCheck5">
-                      <label class="form-check-label" for="formCheck5">
-                        Putih
-                      </label>
-                      <input class="form-check-input" type="checkbox" id="formCheck6">
-                      <label class="form-check-label" for="formCheck6">
-                        Khaki
-                      </label>
+                        @foreach ($color as $key)
+                        <input class="form-check-input" type="checkbox" id="formColor{{ $key->id }}" name="color[]" value="{{ $key->id }}">
+                        <label class="form-check-label" for="formColor{{ $key->id }}">
+                            {{ $key->warna }}
+                        </label>
+                        @endforeach
                     </div>
                   </div>
                   <div class="mb-3 row">
@@ -84,6 +73,9 @@
                     <div class="col-md-10">
                       <textarea name="deskripsi" id="editor" class="form-control"></textarea>
                     </div>
+                  </div>
+                  <div class="mb-3 text-end">
+                    <button type="submit" class="btn btn-primary"> Submit </button>
                   </div>
                 </form>
               </div>
