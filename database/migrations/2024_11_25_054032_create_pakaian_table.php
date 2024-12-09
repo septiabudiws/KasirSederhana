@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('pakaian', function (Blueprint $table) {
             $table->id();
+            $table->string('token');
             $table->string('nama_pakaian');
             $table->foreignId('kategori_id')->constrained('kategori');
             $table->string('brand');

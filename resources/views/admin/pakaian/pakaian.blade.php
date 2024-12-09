@@ -27,24 +27,31 @@
                       <th>Brand</th>
                       <th>Harga</th>
                       <th>Stok Barang</th>
+                      <th>Ukuran Yang Tersedia</th>
                       <th>Aksi</th>
                     </tr>
                   </thead>
                   <tbody>
+                    @foreach ($pakaians as $get)
                       <tr>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $get->nama_pakaian }}</td>
+                        <td>{{ $get->kategori->nama_kategori }}</td>
+                        <td>{{ $get->brand }}</td>
+                        <td>@rupiah($get->harga)</td>
+                        <td>{{ $get->stok_barang }}</td>
+                        <td>
+                          @foreach ($get->ukuran as $size)
+                            {{ $size->ukuran }},
+                          @endforeach
+                        </td>
                         <td>
                           <button type="button" class="btn btn-info waves-effect waves-light">Edit</button>
                           <button type="button" class="btn btn-danger waves-effect waves-light">Hapus
                           </button>
-                         </div>
                         </td>
                       </tr>
+                    @endforeach
                   </tbody>
                 </table>
               </div>
@@ -66,12 +73,11 @@
         </div>
         <div class="col-sm-6">
           <div class="text-sm-end d-none d-sm-block">
-            Crafted with <i class="mdi mdi-heart text-danger"></i> by <a href="https://themesbrand.com/"
-              target="_blank" class="text-reset">Themesbrand</a>
+            Crafted with <i class="mdi mdi-heart text-danger"></i> by <a href="https://themesbrand.com/" target="_blank"
+              class="text-reset">Themesbrand</a>
           </div>
         </div>
       </div>
     </div>
   </footer>
-  </div>
 </x-admin>

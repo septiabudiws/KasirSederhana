@@ -12,7 +12,7 @@ class PakaianModel extends Model
     protected $guarded = [];
 
     public function kategori(){
-        return $this->belongsTo(KategoriModel::class, 'id_kategori', 'id');
+        return $this->belongsTo(KategoriModel::class, 'kategori_id', 'id');
     }
 
     public function warna(){

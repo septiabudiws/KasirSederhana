@@ -8,6 +8,7 @@ use App\Models\PakaianModel;
 use App\Models\SizeModel;
 use App\Models\WarnaModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class PakaianController extends Controller
 {
@@ -16,7 +17,10 @@ class PakaianController extends Controller
      */
     public function index()
     {
-        return view('admin.pakaian.pakaian');
+        $data = [
+            'pakaians' => PakaianModel::with('warna', 'ukuran', 'kategori')->get()
+        ];
+        return view('admin.pakaian.pakaian', $data);
     }
 
     /**
@@ -38,19 +42,20 @@ class PakaianController extends Controller
     public function store(StorePakaianRequest $request)
     {
 
-        $validateData = $request->validated();
+
 
         $pakaian = PakaianModel::create([
-            'nama_pakaian' => $validateData['nama'],
-            'kategori_id' => $validateData['kategori'],
-            'brand' => $validateData['brand'],
-            'stok_barang' => $validateData['stok'],
-            'harga' =>$validateData['harga'],
-            'deskripsi' => $validateData['deskripsi']
+            'token' => Str::random('12'),
+            'nama_pakaian' => $request->nama,
+            'kategori_id' => $request->kategori,
+            'brand' => $request->brand,
+            'stok_barang' => $request->stok,
+            'harga' =>$request->harga,
+            'deskripsi' => $request->deskripsi
         ]);
 
-        $pakaian->warna()->sync($validateData['color'] ?? []);
-        $pakaian->ukuran()->sync($validateData['size'] ?? []);
+        $pakaian->warna()->sync($request->color, []);
+        $pakaian->ukuran()->sync($request->size, []);
 
         return redirect('/pakaian')->with('success', 'Produk Baru Berhasil Ditambah');
     }

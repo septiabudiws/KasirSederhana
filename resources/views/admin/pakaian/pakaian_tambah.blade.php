@@ -15,7 +15,7 @@
                   <div class="mb-3 row">
                     <label for="example-text-input" class="col-md-2 col-form-label">Nama Produk</label>
                     <div class="col-md-10">
-                      <input class="form-control" type="text" placeholder="Masukkan Nama Produk ..." id="example-text-input">
+                      <input class="form-control" name="nama" type="text" placeholder="Masukkan Nama Produk ..." id="example-text-input">
                     </div>
                   </div>
                   <div class="mb-3 row">
@@ -32,7 +32,7 @@
                   <div class="mb-3 row">
                     <label for="example-text-input2" class="col-md-2 col-form-label">Brand Produk</label>
                     <div class="col-md-10">
-                      <input class="form-control" type="text" placeholder="Masukkan Nama Brand ..." id="example-text-input2" name="nama">
+                      <input class="form-control" type="text" placeholder="Masukkan Nama Brand ..." id="example-text-input2" name="brand">
                     </div>
                   </div>
                   <div class="mb-3 row">
