@@ -18,4 +18,8 @@ class PakaianModel extends Model
     public function warna(){
         return $this->belongsToMany(WarnaModel::class, 'warna_pivot', 'id_pakaian', 'id_warna');
     }
+
+    public function ukuran(){
+        return $this->belongsToMany(SizeModel::class, 'ukuran_pivot', 'id_pakaian', 'id_ukuran');
+    }
 }

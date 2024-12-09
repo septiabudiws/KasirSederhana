@@ -10,7 +10,8 @@
                 <h2>Tambah Produk</h2>
               </div>
               <div class="card-body">
-                <form action="" method="POST">
+                <form action="{{ route('pakaian.store') }}" method="POST">
+                    @csrf
                   <div class="mb-3 row">
                     <label for="example-text-input" class="col-md-2 col-form-label">Nama Produk</label>
                     <div class="col-md-10">
@@ -20,7 +21,7 @@
                   <div class="mb-3 row">
                     <label class="col-md-2 col-form-label">Kategori Produk</label>
                     <div class="col-md-10">
-                      <select class="form-select">
+                      <select class="form-select" name="kategori">
                         <option selected disabled value="">Pilih Kategori...</option>
                         @foreach ($kategori as $item)
                         <option value="{{ $item->id }}">{{ $item->nama_kategori }}</option>
@@ -31,13 +32,13 @@
                   <div class="mb-3 row">
                     <label for="example-text-input2" class="col-md-2 col-form-label">Brand Produk</label>
                     <div class="col-md-10">
-                      <input class="form-control" type="text" placeholder="Masukkan Nama Brand ..." id="example-text-input2">
+                      <input class="form-control" type="text" placeholder="Masukkan Nama Brand ..." id="example-text-input2" name="nama">
                     </div>
                   </div>
                   <div class="mb-3 row">
                     <label for="example-text-input3" class="col-md-2 col-form-label">Harga</label>
                     <div class="col-md-10">
-                      <input class="form-control" type="number" placeholder="contoh: 150000" id="example-text-input3">
+                      <input class="form-control" type="number" placeholder="contoh: 150000" id="example-text-input3" name="harga">
                     </div>
                   </div>
                   <div class="mb-3 row">
@@ -65,7 +66,7 @@
                   <div class="mb-3 row">
                     <label for="example-text-input4" class="col-md-2 col-form-label">Stok Produk</label>
                     <div class="col-md-10">
-                      <input class="form-control" type="number" placeholder="30" id="example-text-input4">
+                      <input class="form-control" type="number" placeholder="30" id="example-text-input4" name="stok">
                     </div>
                   </div>
                   <div class="mb-3 row">

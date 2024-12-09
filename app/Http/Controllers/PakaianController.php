@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StorePakaianRequest;
 use App\Models\KategoriModel;
+use App\Models\PakaianModel;
 use App\Models\SizeModel;
 use App\Models\WarnaModel;
 use Illuminate\Http\Request;
@@ -33,9 +35,24 @@ class PakaianController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StorePakaianRequest $request)
     {
-        //
+
+        $validateData = $request->validated();
+
+        $pakaian = PakaianModel::create([
+            'nama_pakaian' => $validateData['nama'],
+            'kategori_id' => $validateData['kategori'],
+            'brand' => $validateData['brand'],
+            'stok_barang' => $validateData['stok'],
+            'harga' =>$validateData['harga'],
+            'deskripsi' => $validateData['deskripsi']
+        ]);
+
+        $pakaian->warna()->sync($validateData['color'] ?? []);
+        $pakaian->ukuran()->sync($validateData['size'] ?? []);
+
+        return redirect('/pakaian')->with('success', 'Produk Baru Berhasil Ditambah');
     }
 
     /**

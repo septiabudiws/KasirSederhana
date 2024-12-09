@@ -12,4 +12,8 @@ class SizeModel extends Model
     protected $table = 'ukuran';
 
     protected $guarded = [];
+
+    public function pakaian(){
+        return $this->belongsToMany(PakaianModel::class, 'ukuran_pivot', 'id_ukuran', 'id_pakaian');
+    }
 }

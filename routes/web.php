@@ -38,5 +38,6 @@ Route::get('/size/hapus/{id}', [SizeController::class, 'destroy']);
 
 Route::get('/pakaian', [PakaianController::class, 'index']);
 Route::get('/pakaian/tambah', [PakaianController::class, 'create']);
+Route::post('/pakaian/tambah', [PakaianController::class, 'store'])->name('pakaian.store');
 
 
