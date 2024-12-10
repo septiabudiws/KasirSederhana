@@ -42,7 +42,10 @@ class PakaianController extends Controller
     public function store(StorePakaianRequest $request)
     {
 
+        $gambar = $request->file('gambar');
+        $token = uniqid();
 
+        $file_name = $token . "." . $gambar->getClientOriginalExtension();
 
         $pakaian = PakaianModel::create([
             'token' => Str::random('12'),
@@ -51,11 +54,14 @@ class PakaianController extends Controller
             'brand' => $request->brand,
             'stok_barang' => $request->stok,
             'harga' =>$request->harga,
-            'deskripsi' => $request->deskripsi
+            'deskripsi' => $request->deskripsi,
+            'gambar' => $file_name
         ]);
 
         $pakaian->warna()->sync($request->color, []);
         $pakaian->ukuran()->sync($request->size, []);
+
+        $gambar->move('gambar_produk', $file_name);
 
         return redirect('/pakaian')->with('success', 'Produk Baru Berhasil Ditambah');
     }

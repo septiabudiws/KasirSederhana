@@ -10,12 +10,13 @@
                 <h2>Tambah Produk</h2>
               </div>
               <div class="card-body">
-                <form action="{{ route('pakaian.store') }}" method="POST">
-                    @csrf
+                <form action="{{ route('pakaian.store') }}" method="POST" enctype="multipart/form-data">
+                  @csrf
                   <div class="mb-3 row">
                     <label for="example-text-input" class="col-md-2 col-form-label">Nama Produk</label>
                     <div class="col-md-10">
-                      <input class="form-control" name="nama" type="text" placeholder="Masukkan Nama Produk ..." id="example-text-input">
+                      <input class="form-control" name="nama" type="text" placeholder="Masukkan Nama Produk ..."
+                        id="example-text-input">
                     </div>
                   </div>
                   <div class="mb-3 row">
@@ -24,7 +25,7 @@
                       <select class="form-select" name="kategori">
                         <option selected disabled value="">Pilih Kategori...</option>
                         @foreach ($kategori as $item)
-                        <option value="{{ $item->id }}">{{ $item->nama_kategori }}</option>
+                          <option value="{{ $item->id }}">{{ $item->nama_kategori }}</option>
                         @endforeach
                       </select>
                     </div>
@@ -32,41 +33,59 @@
                   <div class="mb-3 row">
                     <label for="example-text-input2" class="col-md-2 col-form-label">Brand Produk</label>
                     <div class="col-md-10">
-                      <input class="form-control" type="text" placeholder="Masukkan Nama Brand ..." id="example-text-input2" name="brand">
+                      <input class="form-control" type="text" placeholder="Masukkan Nama Brand ..."
+                        id="example-text-input2" name="brand">
                     </div>
                   </div>
                   <div class="mb-3 row">
                     <label for="example-text-input3" class="col-md-2 col-form-label">Harga</label>
                     <div class="col-md-10">
-                      <input class="form-control" type="number" placeholder="contoh: 150000" id="example-text-input3" name="harga">
+                      <input class="form-control" type="number" placeholder="contoh: 150000" id="example-text-input3"
+                        name="harga">
                     </div>
                   </div>
                   <div class="mb-3 row">
                     <label for="example-text-input5" class="col-md-2 col-form-label">Ukuran Yang Tersedia</label>
                     <div class="col-md-10">
-                        @foreach ($size as $get)
-                        <input class="form-check-input" type="checkbox" id="formCheck{{ $get->id }}" name="size[]" value="{{ $get->id }}">
+                      @foreach ($size as $get)
+                        <input class="form-check-input" type="checkbox" id="formCheck{{ $get->id }}" name="size[]"
+                          value="{{ $get->id }}">
                         <label class="form-check-label" for="formCheck{{ $get->id }}">
-                            {{ $get->ukuran }}
+                          {{ $get->ukuran }}
                         </label>
-                        @endforeach
+                      @endforeach
                     </div>
                   </div>
                   <div class="mb-3 row">
                     <label for="example-text-input6" class="col-md-2 col-form-label">Warna Yang Tersedia</label>
                     <div class="col-md-10">
-                        @foreach ($color as $key)
-                        <input class="form-check-input" type="checkbox" id="formColor{{ $key->id }}" name="color[]" value="{{ $key->id }}">
+                      @foreach ($color as $key)
+                        <input class="form-check-input" type="checkbox" id="formColor{{ $key->id }}" name="color[]"
+                          value="{{ $key->id }}">
                         <label class="form-check-label" for="formColor{{ $key->id }}">
-                            {{ $key->warna }}
+                          {{ $key->warna }}
                         </label>
-                        @endforeach
+                      @endforeach
                     </div>
                   </div>
                   <div class="mb-3 row">
                     <label for="example-text-input4" class="col-md-2 col-form-label">Stok Produk</label>
                     <div class="col-md-10">
-                      <input class="form-control" type="number" placeholder="30" id="example-text-input4" name="stok">
+                      <input class="form-control" type="number" placeholder="30" id="example-text-input4"
+                        name="stok">
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <label class="col-md-2 col-form-label">Masukkan Gambar Produk</label>
+                    <div class="col-md-10">
+                      <div class="form-control h-100 text-center position-relative p-4 p-lg-5">
+                        <label for="file-upload" class="file-upload mb-0">
+                          <span class="d-inline-block wh-110 bg-body-bg rounded-10 position-relative ">
+                            <img id="blah" src="{{ asset('minible') }}/upload.png" alt="your image" />
+                          </span>
+                        </label>
+                        <input id="file-upload" name="gambar" onchange="readURL(this);" type="file" hidden>
+                      </div>
                     </div>
                   </div>
                   <div class="mb-3 row">
@@ -133,6 +152,12 @@
       animation-duration: 1s;
       animation-fill-mode: both;
     }
+
+    #blah {
+    max-width: 100%;
+    max-height: 200px; /* Sesuaikan tinggi maksimal */
+    object-fit: contain; /* Agar gambar tetap proporsional */
+  }
   </style>
 
   <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
@@ -153,8 +178,10 @@
         var reader = new FileReader();
 
         reader.onload = function(e) {
-          $('#upload').attr('src', e.target.result);
+          $('#blah')
+            .attr('src', e.target.result);
         };
+
 
         reader.readAsDataURL(input.files[0]);
       }

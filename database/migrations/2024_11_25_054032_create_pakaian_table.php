@@ -20,7 +20,7 @@ return new class extends Migration
             $table->integer('harga');
             $table->integer('stok_barang');
             $table->text('deskripsi');
-            $table->foreignId('gambar_id')->constrained('gambar')->nullable();
+            $table->string('gambar')->nullable();
             $table->timestamps();
         });
     }
