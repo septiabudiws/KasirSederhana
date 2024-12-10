@@ -14,9 +14,8 @@ class KategoriController extends Controller
     {
 
         $kategori = KategoriModel::withCount('pakaian')->get();
-        $no = 1;
 
-        return view('admin.kategori.kategori', compact('kategori', 'no'));
+        return view('admin.kategori.kategori', compact('kategori'));
     }
 
     /**

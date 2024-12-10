@@ -10,52 +10,49 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-xl-12">
-            <div class="mb-2">
+          <div class="card">
+            <div class="col-md-2 pt-3 mb-3">
               <a class="btn btn-primary waves-effect waves-light" href="/pakaian/tambah">Tambah Produk</a>
             </div>
-          </div>
-          <div class="card">
-            <div class="card-body">
-              <div class="table-responsive">
-                <table class="table mb-0">
-                  <thead class="table-light">
+            <div class="table-responsive">
+              <table class="table mb-0 text-center">
+                <thead class="table-light">
+                  <tr>
+                    <th>No</th>
+                    <th>Nama Pakaian</th>
+                    <th>Kategori</th>
+                    <th>Brand</th>
+                    <th>Harga</th>
+                    <th>Stok Barang</th>
+                    <th>Ukuran Yang Tersedia</th>
+                    <th>Aksi</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @foreach ($pakaians as $get)
                     <tr>
-                      <th>No</th>
-                      <th>Nama Pakaian</th>
-                      <th>Kategori</th>
-                      <th>Brand</th>
-                      <th>Harga</th>
-                      <th>Stok Barang</th>
-                      <th>Ukuran Yang Tersedia</th>
-                      <th>Aksi</th>
+                      <td>{{ $loop->iteration }}</td>
+                      <td>{{ $get->nama_pakaian }}</td>
+                      <td>{{ $get->kategori->nama_kategori }}</td>
+                      <td>{{ $get->brand }}</td>
+                      <td>@rupiah($get->harga)</td>
+                      <td>{{ $get->stok_barang }}</td>
+                      <td>
+                        @foreach ($get->ukuran as $size)
+                          {{ $size->ukuran }},
+                        @endforeach
+                      </td>
+                      <td>
+                        <button type="button" class="btn btn-success waves-effect waves-light">Detail Produk</button>
+                        <button type="button" class="btn btn-info waves-effect waves-light">Edit</button>
+                        <button type="button" class="btn btn-danger waves-effect waves-light">Hapus
+                        </button>
+                      </td>
                     </tr>
-                  </thead>
-                  <tbody>
-                    @foreach ($pakaians as $get)
-                      <tr>
-                        <td>{{ $loop->iteration }}</td>
-                        <td>{{ $get->nama_pakaian }}</td>
-                        <td>{{ $get->kategori->nama_kategori }}</td>
-                        <td>{{ $get->brand }}</td>
-                        <td>@rupiah($get->harga)</td>
-                        <td>{{ $get->stok_barang }}</td>
-                        <td>
-                          @foreach ($get->ukuran as $size)
-                            {{ $size->ukuran }},
-                          @endforeach
-                        </td>
-                        <td>
-                          <button type="button" class="btn btn-info waves-effect waves-light">Edit</button>
-                          <button type="button" class="btn btn-danger waves-effect waves-light">Hapus
-                          </button>
-                        </td>
-                      </tr>
-                    @endforeach
-                  </tbody>
-                </table>
-              </div>
-            </div> <!-- end card-body-->
+                  @endforeach
+                </tbody>
+              </table>
+            </div>
           </div> <!-- end card-->
         </div> <!-- end col-->
       </div> <!-- end row-->

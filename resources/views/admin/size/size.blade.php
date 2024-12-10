@@ -11,15 +11,12 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-xl-12">
-            <div class="mb-2">
-              <button type="button" class="btn btn-primary waves-effect waves-light" data-bs-toggle="modal"
+          <div class="card">
+            <div class="mb-3 pt-3">
+                <button type="button" class="btn btn-primary waves-effect waves-light" data-bs-toggle="modal"
                 data-bs-target="#animationModal">Tambah Ukuran</button>
             </div>
-          </div>
-          <div class="card">
-            <div class="card-body">
-              <div class="table-responsive">
+            <div class="table-responsive">
                 <table class="table mb-0">
                   <thead class="table-light">
                     <tr>
@@ -32,7 +29,7 @@
                   <tbody>
                     @foreach ($size as $get)
                       <tr>
-                        <td>{{ $no++ }}</td>
+                        <td>{{ $loop->iteration }}</td>
                         <td>{{ $get->ukuran }}</td>
                         <td>0</td>
                         <td>
@@ -96,66 +93,62 @@
                               </div>
                             </div>
                           </div>
+                    @endforeach
+                  </tbody>
+                </table>
               </div>
-              </td>
-              </tr>
-              @endforeach
-              </tbody>
-              </table>
-            </div>
-          </div> <!-- end card-body-->
-        </div> <!-- end card-->
-      </div> <!-- end col-->
+          </div> <!-- end card-->
+        </div> <!-- end col-->
 
-      <div class="toast-container position-fixed bottom-0 end-0 p-3">
-        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-          <div class="toast-header">
-            <img src="..." class="rounded me-2" alt="...">
-            <strong class="me-auto">Bootstrap</strong>
-            <small>11 mins ago</small>
-            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        <div class="toast-container position-fixed bottom-0 end-0 p-3">
+          <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+              <img src="..." class="rounded me-2" alt="...">
+              <strong class="me-auto">Bootstrap</strong>
+              <small>11 mins ago</small>
+              <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+              Hello, world! This is a toast message.
+            </div>
           </div>
-          <div class="toast-body">
-            Hello, world! This is a toast message.
+        </div>
+
+      </div> <!-- end row-->
+
+      <!-- Modal Tambah Kategori -->
+      <div class="modal fade animate__jackInTheBox" id="animationModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title" id="exampleModalLabel5">Tambah Ukuran</h4>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <div class="col mb-6 mt-2">
+                  <form action="{{ route('size.store') }}" method="POST">
+                    @csrf
+                    <div class="form-floating form-floating-outline">
+                      <input type="text" id="nameAnimation" name="size" class="form-control"
+                        placeholder="Masukkan Ukuran Produk...">
+                      <label for="nameAnimation">Ukuran</label>
+                    </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+            </form>
           </div>
         </div>
       </div>
 
-    </div> <!-- end row-->
-
-    <!-- Modal Tambah Kategori -->
-    <div class="modal fade animate__jackInTheBox" id="animationModal" tabindex="-1" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h4 class="modal-title" id="exampleModalLabel5">Tambah Ukuran</h4>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <div class="row">
-              <div class="col mb-6 mt-2">
-                <form action="{{ route('size.store') }}" method="POST">
-                  @csrf
-                  <div class="form-floating form-floating-outline">
-                    <input type="text" id="nameAnimation" name="size" class="form-control"
-                      placeholder="Masukkan Ukuran Produk...">
-                    <label for="nameAnimation">Ukuran</label>
-                  </div>
-              </div>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary">Submit</button>
-          </div>
-          </form>
-        </div>
-      </div>
-    </div>
 
 
-
-  </div> <!-- container-fluid -->
+    </div> <!-- container-fluid -->
   </div>
   <!-- End Page-content -->
 

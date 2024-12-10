@@ -14,9 +14,8 @@ class ColorController extends Controller
     {
 
         $color = ColorModel::all();
-        $no = 1;
 
-        return view('admin.color.color', compact('color', 'no'));
+        return view('admin.color.color', compact('color'));
     }
 
     /**

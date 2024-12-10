@@ -13,9 +13,8 @@ class SizeController extends Controller
     public function index()
     {
         $size = SizeModel::all();
-        $no = 1;
 
-        return view('admin.size.size', compact('size', 'no'));
+        return view('admin.size.size', compact('size'));
     }
 
     /**
