@@ -96,11 +96,9 @@ class PakaianController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
-{
+    public function update(Request $request, $id){
 
     $pakaian = PakaianModel::where('token', $id)->first();
-
 
     $data = [
         'nama_pakaian' => $request->nama,
@@ -128,10 +126,8 @@ class PakaianController extends Controller
         }
     }
 
-
     $pakaian->update($data);
 
-    
     $pakaian->warna()->sync($request->color, []);
     $pakaian->ukuran()->sync($request->size, []);
 
