@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('ukuran_pivot', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_pakaian')->constrained('pakaian');
-            $table->foreignId('id_ukuran')->constrained('ukuran');
+            $table->foreignId('id_pakaian')->constrained('pakaian')->cascadeOnDelete();
+            $table->foreignId('id_ukuran')->constrained('ukuran')->cascadeOnDelete();
             $table->timestamps();
         });
     }

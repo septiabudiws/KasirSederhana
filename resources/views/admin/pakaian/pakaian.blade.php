@@ -44,9 +44,34 @@
                       </td>
                       <td>
                         <button type="button" class="btn btn-success waves-effect waves-light">Detail Produk</button>
-                        <button type="button" class="btn btn-info waves-effect waves-light">Edit</button>
-                        <button type="button" class="btn btn-danger waves-effect waves-light">Hapus
+                        <a class="btn btn-info waves-effect waves-light" href="/pakaian/edit/{{ $get->token }}">Edit</a>
+                        <button type="button" class="btn btn-danger waves-effect waves-light" data-bs-toggle="modal"
+                          data-bs-target="#modal_del_{{ $get->token }}">Hapus
                         </button>
+                        <div class="modal fade" id="modal_del_{{ $get->token }}" data-bs-backdrop="static"
+                          data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+                          aria-hidden="true">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="staticBackdropLabel"><i
+                                    class="ri-error-warning-line"></i>
+                                  Peringatan!</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                  aria-label="Close"></button>
+                              </div>
+                              <div class="modal-body">
+                                Yakin ingin menghapus Produk <b>{{ $get->nama_pakaian }}</b>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary text-white"
+                                  data-bs-dismiss="modal">Batal</button>
+                                <a href="/pakaian/hapus/{{ $get->token }}" class="btn btn-danger text-white">Ya!
+                                  Hapus</a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                       </td>
                     </tr>
                   @endforeach

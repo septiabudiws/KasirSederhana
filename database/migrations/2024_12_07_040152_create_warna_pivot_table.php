@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('warna_pivot', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_pakaian')->constrained('pakaian');
-            $table->foreignId('id_warna')->constrained('warna');
+            $table->foreignId('id_pakaian')->constrained('pakaian')->cascadeOnDelete();
+            $table->foreignId('id_warna')->constrained('warna')->cascadeOnDelete();
             $table->timestamps();
         });
     }

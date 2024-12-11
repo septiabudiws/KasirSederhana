@@ -39,5 +39,8 @@ Route::get('/size/hapus/{id}', [SizeController::class, 'destroy']);
 Route::get('/pakaian', [PakaianController::class, 'index']);
 Route::get('/pakaian/tambah', [PakaianController::class, 'create']);
 Route::post('/pakaian/tambah', [PakaianController::class, 'store'])->name('pakaian.store');
+Route::get('/pakaian/edit/{id}', [PakaianController::class, 'edit']);
+Route::post('/pakaian/edit/{id}', [PakaianController::class, 'update'])->name('pakaian.update');
+Route::get('/pakaian/hapus/{id}', [PakaianController::class, 'destroy']);
 
 
