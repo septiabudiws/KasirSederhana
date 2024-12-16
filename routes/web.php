@@ -5,6 +5,7 @@ use App\Http\Controllers\ColorController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\PakaianController;
 use App\Http\Controllers\SizeController;
 use Faker\Core\Color;
@@ -48,3 +49,5 @@ Route::post('/pakaian/edit/{id}', [PakaianController::class, 'update'])->name('p
 Route::get('/pakaian/hapus/{id}', [PakaianController::class, 'destroy']);
 
 
+//KARYAWAN
+Route::get('/karyawan/dashboard', [KaryawanController::class, 'index']);
