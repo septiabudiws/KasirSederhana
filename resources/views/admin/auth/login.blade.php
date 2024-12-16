@@ -72,7 +72,7 @@
                   </div>
 
                   <div class="mt-4 text-center">
-                    <p class="mb-0">Don't have an account ? <a href="auth-register.html"
+                    <p class="mb-0">Don't have an account ? <a href="/register"
                         class="fw-medium text-primary"> Signup now </a> </p>
                   </div>
                 </form>

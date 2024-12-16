@@ -31,10 +31,7 @@
   <link href="{{ asset('minible') }}/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css"
     rel="stylesheet" type="text/css" />
 
-
-
 </head>
-
 
 <body>
 
