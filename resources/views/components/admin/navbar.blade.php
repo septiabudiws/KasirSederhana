@@ -234,7 +234,7 @@
         <a class="dropdown-item" href="#"><i
             class="uil uil-lock-alt font-size-18 align-middle me-1 text-muted"></i> <span class="align-middle">Lock
             screen</span></a>
-        <a class="dropdown-item" href="#"><i
+        <a class="dropdown-item" href="/logout"><i
             class="uil uil-sign-out-alt font-size-18 align-middle me-1 text-muted"></i> <span
             class="align-middle">Sign out</span></a>
       </div>

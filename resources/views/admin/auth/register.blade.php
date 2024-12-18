@@ -43,41 +43,40 @@
 
               <div class="text-center mt-2">
                 <h5 class="text-primary">Register Account</h5>
-                <p class="text-muted">Get your free Minible account now.</p>
+                <p class="text-muted">Daftar Jadi Karyawan Disini</p>
               </div>
               <div class="p-2 mt-4">
-                <form action="https://themesbrand.com/minible/layouts/index.html">
+                <form action="{{ route('register') }}" method="POST">
+                    @csrf
+                    <div class="mb-3">
+                      <label class="form-label" for="nama">Nama</label>
+                      <input type="text" class="form-control" id="nama" placeholder="Masukkan Nama Anda" name="nama">
+                    </div>
 
                   <div class="mb-3">
                     <label class="form-label" for="useremail">Email</label>
-                    <input type="email" class="form-control" id="useremail" placeholder="Enter email">
-                  </div>
-
-                  <div class="mb-3">
-                    <label class="form-label" for="username">Username</label>
-                    <input type="text" class="form-control" id="username" placeholder="Enter username">
+                    <input type="email" class="form-control" id="useremail" placeholder="Masukkan Email Anda" name="email">
                   </div>
 
                   <div class="mb-3">
                     <label class="form-label" for="userpassword">Password</label>
-                    <input type="password" class="form-control" id="userpassword" placeholder="Enter password">
+                    <input type="password" class="form-control" id="userpassword" placeholder="Enter password" name="password">
                   </div>
 
                   <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="auth-terms-condition-check">
-                    <label class="form-check-label" for="auth-terms-condition-check">I accept <a
-                        href="javascript: void(0);" class="text-reset ">Terms and Conditions</a></label>
+                    <input type="checkbox" class="form-check-input" id="auth-terms-condition-check" name="terms">
+                    <label class="form-check-label" for="auth-terms-condition-check">Saya menerima Syarat dan Ketentuan</label>
                   </div>
 
 
 
                   <div class="mt-3 text-end">
-                    <button class="btn btn-primary w-sm waves-effect waves-light" type="submit">Register</button>
+                    <button class="btn btn-primary w-sm waves-effect waves-light" type="submit">Daftar</button>
                   </div>
                   </div>
 
                   <div class="mt-4 text-center">
-                    <p class="text-muted mb-0">Already have an account ? <a href="/login"
+                    <p class="text-muted mb-0">Sudah Punya Akun Karyawan ? <a href="/login"
                         class="fw-medium text-primary"> Login</a></p>
                   </div>
                 </form>

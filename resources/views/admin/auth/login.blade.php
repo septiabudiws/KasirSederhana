@@ -4,7 +4,7 @@
 <head>
 
   <meta charset="utf-8" />
-  <title>Login | Minible - Admin & Dashboard Template</title>
+  <title>Login</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
   <meta content="Themesbrand" name="author" />
@@ -46,11 +46,11 @@
                 <p class="text-muted">Sign in to continue to Minible.</p>
               </div>
               <div class="p-2 mt-4">
-                <form action="https://themesbrand.com/minible/layouts/index.html">
-
+                <form action="{{ route('login') }}" method="POST">
+                    @csrf
                   <div class="mb-3">
-                    <label class="form-label" for="username">Username</label>
-                    <input type="text" class="form-control" id="username" placeholder="Enter username">
+                    <label class="form-label" for="email">email</label>
+                    <input type="email" class="form-control" id="email" placeholder="Enter Email" name="email">
                   </div>
 
                   <div class="mb-3">
@@ -58,7 +58,7 @@
                       <a href="auth-recoverpw.html" class="text-muted">Forgot password?</a>
                     </div>
                     <label class="form-label" for="userpassword">Password</label>
-                    <input type="password" class="form-control" id="userpassword" placeholder="Enter password">
+                    <input type="password" class="form-control" id="userpassword" placeholder="Enter password" name="password">
                   </div>
 
                   <div class="form-check">

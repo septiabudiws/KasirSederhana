@@ -21,10 +21,15 @@ use Faker\Core\Color;
 |
 */
 
-Route::get('/login', [AuthController::class, 'login']);
-Route::get('/register', [AuthController::class, 'register']);
+Route::middleware(['guest'])->group(function(){
+  Route::get('/login', [AuthController::class, 'login']);
+  Route::post('/login', [AuthController::class, 'login_action'])->name('login');
+  Route::get('/register', [AuthController::class, 'register']);
+  Route::post('/register', [AuthController::class, 'login_action'])->name('register');
+});
 
-Route::get('/', [DashboardController::class, 'index']);
+Route::middleware(['auth', 'role:admin'])->group(function(){
+Route::get('/dashboard', [DashboardController::class, 'index']);
 
 Route::get('/kategori', [KategoriController::class, 'index']);
 Route::post('/kategori/tambah', [KategoriController::class, 'store'])->name('kategori.store');
@@ -47,7 +52,12 @@ Route::post('/pakaian/tambah', [PakaianController::class, 'store'])->name('pakai
 Route::get('/pakaian/edit/{id}', [PakaianController::class, 'edit']);
 Route::post('/pakaian/edit/{id}', [PakaianController::class, 'update'])->name('pakaian.update');
 Route::get('/pakaian/hapus/{id}', [PakaianController::class, 'destroy']);
+});
 
+Route::middleware(['auth', 'role:karyawan'])->group(function(){
+Route::get('/dashboard/karyawan', [DashboardController::class, 'index']);
+});
 
-//KARYAWAN
-Route::get('/karyawan/dashboard', [KaryawanController::class, 'index']);
+Route::middleware(['auth'])->group(function(){
+Route::get('/logout', [AuthController::class, 'logout']);
+});
