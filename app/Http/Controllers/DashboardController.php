@@ -23,43 +23,69 @@ class DashboardController extends Controller
     }
 
     public function storePesanan(Request $request)
-    {
-        $request->validate([
-            'nama_produk' => 'required|array',
-            'nama_produk.*' => 'required|string',
-            'brand.*' => 'required|string',
-            'harga.*' => 'required|numeric',
-            'jumlah.*' => 'required|integer|min:1',
+{
+    $request->validate([
+        'nama_produk' => 'required|array',
+        'nama_produk.*' => 'required|string',
+        'brand.*' => 'required|string',
+        'harga.*' => 'required|numeric',
+        'jumlah.*' => 'required|integer|min:1',
+    ]);
+
+    $totalPesanan = 0;
+    foreach ($request->harga as $key => $harga) {
+        $totalPesanan += $harga * $request->jumlah[$key];
+    }
+
+    // Buat data transaksi
+    $transaksi = TransaksiModel::create([
+        'token' => uniqid('TRX-'),
+        'total_pesanan' => $totalPesanan,
+        'tanggal_transaksi' => now(),
+    ]);
+
+    foreach ($request->nama_produk as $key => $nama_produk) {
+        // Simpan item transaksi
+        TransaksiitemModel::create([
+            'transaksi_id' => $transaksi->id,
+            'nama_produk' => $nama_produk,
+            'brand' => $request->brand[$key],
+            'harga' => $request->harga[$key],
+            'jumlah' => $request->jumlah[$key],
+            'total' => $request->harga[$key] * $request->jumlah[$key],
         ]);
 
-        $totalPesanan = 0;
-        foreach ($request->harga as $key => $harga) {
-            $totalPesanan += $harga * $request->jumlah[$key];
-        }
+        // Update stok produk di tabel pakaian
+        $produk = PakaianModel::where('nama_pakaian', $nama_produk)->first();
 
-        $transaksi = TransaksiModel::create([
-            'token' => uniqid('TRX-'),
-            'total_pesanan' => $totalPesanan,
-            'tanggal_transaksi' => now(),
-        ]);
-
-        foreach ($request->nama_produk as $key => $nama_produk) {
-            TransaksiitemModel::create([
-                'transaksi_id' => $transaksi->id,
-                'nama_produk' => $nama_produk,
-                'brand' => $request->brand[$key],
-                'harga' => $request->harga[$key],
-                'jumlah' => $request->jumlah[$key],
-                'total' => $request->harga[$key] * $request->jumlah[$key],
+        if ($produk) {
+            if ($produk->stok_barang >= $request->jumlah[$key]) {
+                // Kurangi stok
+                $produk->stok_barang -= $request->jumlah[$key];
+                $produk->save();
+            } else {
+                // Jika stok tidak mencukupi, lempar error
+                return back()->withErrors([
+                    'message' => "Stok untuk produk {$nama_produk} tidak mencukupi.",
+                ]);
+            }
+        } else {
+            // Jika produk tidak ditemukan
+            return back()->withErrors([
+                'message' => "Produk {$nama_produk} tidak ditemukan di database.",
             ]);
         }
-        $user = Auth::user();
-        if ($user->hasRole('admin')) {
-            return redirect('/dashboard');
-        } else {
-            return redirect('/dashboard/karyawan');
-        }
     }
+
+    // Redirect sesuai role
+    $user = Auth::user();
+    if ($user->hasRole('admin')) {
+        return redirect('/dashboard');
+    } else {
+        return redirect('/dashboard/karyawan');
+    }
+}
+
 
     /**
      * Show the form for creating a new resource.
