@@ -129,7 +129,7 @@
             </div>
             <div class="card">
               <div class="card-body mt-4">
-                <form id="pesanan-form" method="POST" action="">
+                <form id="pesanan-form" method="POST" action="{{ route('transaksi.store') }}">
                   @csrf
                   <table id="pesanan-table" class="table table-bordered dt-responsive nowrap"
                     style="border-collapse: collapse; border-spacing: 0; width: 100%;">
@@ -177,89 +177,5 @@
       </div>
     </footer>
   </div>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const pesananTable = document.querySelector('#pesanan-table tbody');
-      const totalHargaElem = document.querySelector('#total-harga');
-      const btnPesan = document.querySelector('#btn-pesan');
-
-      // Fungsi untuk menghitung total harga
-      function updateTotalHarga() {
-        let total = 0;
-        pesananTable.querySelectorAll('tr').forEach(row => {
-          const harga = parseFloat(row.querySelector('.harga-produk').textContent);
-          const jumlah = parseInt(row.querySelector('.jumlah-input').value);
-          const subtotalCell = row.querySelector('.subtotal');
-          const subtotal = harga * jumlah;
-          subtotalCell.textContent = subtotal.toLocaleString('id-ID'); // Format subtotal ke Rupiah
-          total += subtotal;
-        });
-        totalHargaElem.textContent = total.toLocaleString('id-ID'); // Format total ke Rupiah
-      }
-
-      // Event listener untuk tombol Checkout
-      document.querySelectorAll('.checkout-btn').forEach(button => {
-        button.addEventListener('click', function() {
-          const nama = this.getAttribute('data-nama');
-          const brand = this.getAttribute('data-brand');
-          const harga = parseFloat(this.getAttribute('data-harga'));
-
-          // Cek apakah produk sudah ada di tabel pesanan
-          let existingRow = [...pesananTable.querySelectorAll('tr')].find(row =>
-            row.querySelector('.nama-produk').textContent === nama
-          );
-
-          if (existingRow) {
-            // Jika sudah ada, tambahkan jumlah
-            const jumlahInput = existingRow.querySelector('.jumlah-input');
-            jumlahInput.value = parseInt(jumlahInput.value) + 1;
-          } else {
-            // Jika belum ada, tambahkan baris baru
-            const newRow = document.createElement('tr');
-            newRow.innerHTML = `
-            <td class="nama-produk">${nama}</td>
-            <td>${brand}</td>
-            <td class="harga-produk">${harga}</td>
-            <td>
-              <input type="number" class="form-control jumlah-input" value="1" min="1" style="width: 80px;">
-            </td>
-            <td class="subtotal">${harga.toLocaleString('id-ID')}</td>
-            <td class="text-center">
-              <button type="button" class="btn btn-danger btn-sm remove-btn">Hapus</button>
-            </td>
-          `;
-            pesananTable.appendChild(newRow);
-
-            // Tambahkan event listener untuk kolom jumlah
-            newRow.querySelector('.jumlah-input').addEventListener('input', function() {
-              if (this.value < 1) this.value = 1; // Pastikan nilai tidak kurang dari 1
-              updateTotalHarga(); // Perbarui total harga saat jumlah berubah
-            });
-
-            // Tambahkan event listener untuk tombol hapus
-            newRow.querySelector('.remove-btn').addEventListener('click', function() {
-              newRow.remove();
-              updateTotalHarga(); // Perbarui total harga setelah menghapus baris
-            });
-          }
-          updateTotalHarga(); // Perbarui total harga setelah menambahkan baris
-        });
-      });
-
-      // Event listener untuk tombol Pesan
-      btnPesan.addEventListener('click', function() {
-        if (pesananTable.querySelectorAll('tr').length === 0) {
-          alert('Pesanan kosong! Silakan tambahkan produk terlebih dahulu.');
-        } else {
-          alert('Pesanan berhasil dibuat! Total harga: Rp ' + totalHargaElem.textContent);
-          // Kosongkan tabel dan reset total harga
-          pesananTable.innerHTML = '';
-          updateTotalHarga();
-        }
-      });
-    });
-  </script>
-
-
+  <script src="{{ asset('minible') }}/assets/js/pesan.js"></script>
 </x-admin>

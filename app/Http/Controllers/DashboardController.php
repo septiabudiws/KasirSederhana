@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\PakaianModel;
 use Illuminate\Http\Request;
+use App\Models\TransaksiitemModel;
+use App\Models\TransaksiModel;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
@@ -13,10 +16,49 @@ class DashboardController extends Controller
     public function index()
     {
         $data = [
-            'pakaians' => PakaianModel::with('warna', 'ukuran', 'kategori')->get()
+            'pakaians' => PakaianModel::with('warna', 'ukuran', 'kategori')->get(),
         ];
 
         return view('admin.dashboard', $data);
+    }
+
+    public function storePesanan(Request $request)
+    {
+        $request->validate([
+            'nama_produk' => 'required|array',
+            'nama_produk.*' => 'required|string',
+            'brand.*' => 'required|string',
+            'harga.*' => 'required|numeric',
+            'jumlah.*' => 'required|integer|min:1',
+        ]);
+
+        $totalPesanan = 0;
+        foreach ($request->harga as $key => $harga) {
+            $totalPesanan += $harga * $request->jumlah[$key];
+        }
+
+        $transaksi = TransaksiModel::create([
+            'token' => uniqid('TRX-'),
+            'total_pesanan' => $totalPesanan,
+            'tanggal_transaksi' => now(),
+        ]);
+
+        foreach ($request->nama_produk as $key => $nama_produk) {
+            TransaksiitemModel::create([
+                'transaksi_id' => $transaksi->id,
+                'nama_produk' => $nama_produk,
+                'brand' => $request->brand[$key],
+                'harga' => $request->harga[$key],
+                'jumlah' => $request->jumlah[$key],
+                'total' => $request->harga[$key] * $request->jumlah[$key],
+            ]);
+        }
+        $user = Auth::user();
+        if ($user->hasRole('admin')) {
+            return redirect('/dashboard');
+        } else {
+            return redirect('/dashboard/karyawan');
+        }
     }
 
     /**

@@ -61,3 +61,7 @@ Route::get('/dashboard/karyawan', [DashboardController::class, 'index']);
 Route::middleware(['auth'])->group(function(){
 Route::get('/logout', [AuthController::class, 'logout']);
 });
+
+Route::middleware(['auth', 'role:admin|karyawan'])->group(function(){
+Route::post('/transaksi/store', [DashboardController::class, 'storePesanan'])->name('transaksi.store');
+});
