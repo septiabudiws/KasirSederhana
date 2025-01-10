@@ -6,7 +6,7 @@
 
       <li>
         <a href="/dashboard" class="wafes-effect">
-          <i class="uil uil-home"></i>
+          <i class="uil-chart-pie"></i>
           <span>Dashboard</span>
         </a>
       </li>
@@ -36,6 +36,13 @@
         <a href="/pakaian" class="waves-effect">
           <i class="uil-usd-square"></i>
           <span>Pakaian</span>
+        </a>
+      </li>
+
+      <li>
+        <a href="/transaksi" class="waves-effect">
+          <i class="uil-file-info-alt"></i>
+          <span>Transaksi</span>
         </a>
       </li>
 

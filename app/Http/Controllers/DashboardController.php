@@ -37,7 +37,6 @@ class DashboardController extends Controller
         $totalPesanan += $harga * $request->jumlah[$key];
     }
 
-    // Buat data transaksi
     $transaksi = TransaksiModel::create([
         'token' => uniqid('TRX-'),
         'total_pesanan' => $totalPesanan,
@@ -45,7 +44,6 @@ class DashboardController extends Controller
     ]);
 
     foreach ($request->nama_produk as $key => $nama_produk) {
-        // Simpan item transaksi
         TransaksiitemModel::create([
             'transaksi_id' => $transaksi->id,
             'nama_produk' => $nama_produk,
@@ -54,30 +52,24 @@ class DashboardController extends Controller
             'jumlah' => $request->jumlah[$key],
             'total' => $request->harga[$key] * $request->jumlah[$key],
         ]);
-
-        // Update stok produk di tabel pakaian
         $produk = PakaianModel::where('nama_pakaian', $nama_produk)->first();
 
         if ($produk) {
             if ($produk->stok_barang >= $request->jumlah[$key]) {
-                // Kurangi stok
                 $produk->stok_barang -= $request->jumlah[$key];
                 $produk->save();
             } else {
-                // Jika stok tidak mencukupi, lempar error
                 return back()->withErrors([
                     'message' => "Stok untuk produk {$nama_produk} tidak mencukupi.",
                 ]);
             }
         } else {
-            // Jika produk tidak ditemukan
             return back()->withErrors([
                 'message' => "Produk {$nama_produk} tidak ditemukan di database.",
             ]);
         }
     }
 
-    // Redirect sesuai role
     $user = Auth::user();
     if ($user->hasRole('admin')) {
         return redirect('/dashboard');

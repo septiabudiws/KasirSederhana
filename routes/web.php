@@ -8,6 +8,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\PakaianController;
 use App\Http\Controllers\SizeController;
+use App\Http\Controllers\TransaksiController;
 use Faker\Core\Color;
 
 /*
@@ -52,6 +53,8 @@ Route::post('/pakaian/tambah', [PakaianController::class, 'store'])->name('pakai
 Route::get('/pakaian/edit/{id}', [PakaianController::class, 'edit']);
 Route::post('/pakaian/edit/{id}', [PakaianController::class, 'update'])->name('pakaian.update');
 Route::get('/pakaian/hapus/{id}', [PakaianController::class, 'destroy']);
+
+Route::get('/transaksi', [TransaksiController::class, 'index']);
 });
 
 Route::middleware(['auth', 'role:karyawan'])->group(function(){
