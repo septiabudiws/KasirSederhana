@@ -12,7 +12,8 @@ class SizeController extends Controller
      */
     public function index()
     {
-        $size = SizeModel::all();
+        $size = SizeModel::withCount('pakaian')->get();
+        // dd($size);
 
         return view('admin.size.size', compact('size'));
     }

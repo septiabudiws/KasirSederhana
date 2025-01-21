@@ -30,7 +30,7 @@
                     <tr>
                       <td>{{ $loop->iteration }}</td>
                       <td>{{ $get->warna }}</td>
-                      <td>0</td>
+                      <td>{{ $get->pakaian_count }}</td>
                       <td>
                         <button type="button" class="btn btn-info waves-effect waves-light" data-bs-toggle="modal"
                           data-bs-target="#animationModaledit{{ $get->id }}">Edit</button>

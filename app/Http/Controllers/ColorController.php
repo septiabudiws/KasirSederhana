@@ -13,7 +13,7 @@ class ColorController extends Controller
     public function index()
     {
 
-        $color = ColorModel::all();
+        $color = ColorModel::withCount('pakaian')->get();
 
         return view('admin.color.color', compact('color'));
     }

@@ -62,7 +62,7 @@ class AuthController extends Controller
 
         $user = User::create($data);
 
-        $user->assignRole('admin');
+        $user->assignRole('karyawan');
 
         return redirect('/login')->with('success', 'Berhasil Menjadi Karyawan');
     }

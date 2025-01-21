@@ -6,6 +6,7 @@ use App\Models\PakaianModel;
 use Illuminate\Http\Request;
 use App\Models\TransaksiitemModel;
 use App\Models\TransaksiModel;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
@@ -17,6 +18,10 @@ class DashboardController extends Controller
     {
         $data = [
             'pakaians' => PakaianModel::with('warna', 'ukuran', 'kategori')->get(),
+            'produk' => PakaianModel::count(),
+            'pendapatan' =>TransaksiModel::sum('total_pesanan'),
+            'transaksi' =>TransaksiModel::count(),
+            'karyawan' => User::role('karyawan')->count()
         ];
 
         return view('admin.dashboard', $data);

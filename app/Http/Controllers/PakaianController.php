@@ -8,7 +8,11 @@ use App\Models\PakaianModel;
 use App\Models\SizeModel;
 use App\Models\WarnaModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use App\Models\user;
+use App\Notifications\StockNotification;
+
 
 class PakaianController extends Controller
 {
@@ -145,5 +149,21 @@ class PakaianController extends Controller
         PakaianModel::where('token', $id)->delete();
 
         return redirect('/pakaian');
+    }
+
+    public function checkStock()
+    {
+        $lowStockProducts = PakaianModel::where('stok_barang', '<', 10)->get();
+
+        foreach ($lowStockProducts as $product) {
+            // Ambil semua pengguna dengan role admin
+            $admins = User::role('admin')->get();
+
+            foreach ($admins as $admin) {
+                $admin->notify(new StockNotification($product->nama_pakaian, $product->stok_barang));
+            }
+        }
+
+        return redirect()->back()->with('success', 'Stok telah diperiksa dan notifikasi dikirim.');
     }
 }

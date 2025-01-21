@@ -20,6 +20,6 @@ class PakaianModel extends Model
     }
 
     public function ukuran(){
-        return $this->belongsToMany(SizeModel::class, 'ukuran_pivot', 'id_pakaian', 'id_ukuran');
+        return $this->belongsToMany(SizeModel::class, 'ukuran_pivot', 'id_pakaian', 'id_ukuran', 'id', 'id');
     }
 }

@@ -52,9 +52,16 @@
       <li class="menu-title">Menu</li>
 
       <li>
-        <a href="/dashboard" class="wafes-effect">
+        <a href="/dashboard/karyawan" class="wafes-effect">
           <i class="uil uil-home"></i>
           <span>Dashboard</span>
+        </a>
+      </li>
+
+      <li>
+        <a href="/transaksi" class="waves-effect">
+          <i class="uil-file-info-alt"></i>
+          <span>Transaksi</span>
         </a>
       </li>
 

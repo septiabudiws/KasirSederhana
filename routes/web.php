@@ -26,7 +26,7 @@ Route::middleware(['guest'])->group(function(){
   Route::get('/login', [AuthController::class, 'login']);
   Route::post('/login', [AuthController::class, 'login_action'])->name('login');
   Route::get('/register', [AuthController::class, 'register']);
-  Route::post('/register', [AuthController::class, 'login_action'])->name('register');
+  Route::post('/register', [AuthController::class, 'register_action'])->name('register');
 });
 
 Route::middleware(['auth', 'role:admin'])->group(function(){
@@ -54,7 +54,13 @@ Route::get('/pakaian/edit/{id}', [PakaianController::class, 'edit']);
 Route::post('/pakaian/edit/{id}', [PakaianController::class, 'update'])->name('pakaian.update');
 Route::get('/pakaian/hapus/{id}', [PakaianController::class, 'destroy']);
 
-Route::get('/transaksi', [TransaksiController::class, 'index']);
+Route::get('/check-stock', [PakaianController::class, 'checkStock'])->name('check.stock');
+
+Route::get('/notifications/mark-all-read', function () {
+    auth()->user()->unreadNotifications->markAsRead();
+    return redirect()->back();
+})->name('notifications.markAllRead');
+
 });
 
 Route::middleware(['auth', 'role:karyawan'])->group(function(){
@@ -63,6 +69,7 @@ Route::get('/dashboard/karyawan', [DashboardController::class, 'index']);
 
 Route::middleware(['auth', 'role:admin|karyawan'])->group(function(){
 Route::post('/transaksi/store', [DashboardController::class, 'storePesanan'])->name('transaksi.store');
+Route::get('/transaksi', [TransaksiController::class, 'index']);
 });
 
 Route::middleware(['auth'])->group(function(){
