@@ -1,4 +1,6 @@
 <x-admin>
+  <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="{{ env('MIDTRANS_CLIENT_KEY') }}"></script>
+
   <div class="main-content">
     <div class="page-content">
       <div class="container-fluid">
@@ -53,30 +55,33 @@
                                   <h2 class="text-center fw-bold">MINIBLE</h2>
                                   <p class="text-center">Jl. Raya Andromeda No. 69</p>
                                   <p class="fs-6 text-start">No. Transaksi: {{ $get->token }}</p>
-                                  <p class="fs-6 text-start">Tanggal: {{ \Carbon\Carbon::parse($get->tanggal_transaksi)->translatedFormat('d F Y') }}</p>
+                                  <p class="fs-6 text-start">Tanggal:
+                                    {{ \Carbon\Carbon::parse($get->tanggal_transaksi)->translatedFormat('d F Y') }}</p>
                                   <div class="table-responsive-sm">
-                                  <table class="table">
-                                    <thead class="table-light">
+                                    <table class="table">
+                                      <thead class="table-light">
                                         <tr>
-                                            <th><small>Nama Produk</small></th>
-                                            <th><small>Satuan</small></th>
-                                            <th><small>Harga</small></th>
-                                            <th><small>Quantity</small></th>
-                                            <th><small>Total</small></th>
+                                          <th><small>Nama Produk</small></th>
+                                          <th><small>Satuan</small></th>
+                                          <th><small>Harga</small></th>
+                                          <th><small>Quantity</small></th>
+                                          <th><small>Total</small></th>
                                         </tr>
-                                    </thead>
-                                    <tbody>
+                                      </thead>
+                                      <tbody>
                                         @foreach ($get->items as $item)
-                                        <tr>
+                                          <tr>
                                             <td><small>{{ $item->nama_produk }}</small></td>
                                             <td><small>PCS</small></td>
                                             <td><small>@rupiah($item->harga)</small></td>
-                                            <td><small>{{ $item->harga > 0 ? floor($item->total / $item->harga) : 0 }}</small></td>
+                                            <td>
+                                              <small>{{ $item->harga > 0 ? floor($item->total / $item->harga) : 0 }}</small>
+                                            </td>
                                             <td><small>@rupiah($item->total)</small></td>
-                                        </tr>
+                                          </tr>
                                         @endforeach
-                                    </tbody>
-                                  </table>
+                                      </tbody>
+                                    </table>
                                   </div>
                                   <p class="text-end fs-5">Total @rupiah($get->total_pesanan)</p>
                                 </div>
@@ -88,6 +93,30 @@
                               </div>
                             </div>
                           </div>
+                          <button class="btn btn-success pay-button" type="button"
+                            id="pay-button{{ $get->token }}">Bayar</button>
+                          <script type="text/javascript">
+                            document.getElementById('pay-button{{ $get->token }}').onclick = function() {
+                              // SnapToken acquired from previous step
+                              snap.pay('{{ $get->snap_token }}', {
+                                // Optional
+                                onSuccess: function(result) {
+                                  /* You may add your own js here, this is just example */
+                                  document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
+                                },
+                                // Optional
+                                onPending: function(result) {
+                                  /* You may add your own js here, this is just example */
+                                  document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
+                                },
+                                // Optional
+                                onError: function(result) {
+                                  /* You may add your own js here, this is just example */
+                                  document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
+                                }
+                              });
+                            };
+                          </script>
                         </td>
                       </tr>
                     @endforeach
