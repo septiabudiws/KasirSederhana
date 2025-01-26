@@ -53,6 +53,7 @@ Route::post('/pakaian/tambah', [PakaianController::class, 'store'])->name('pakai
 Route::get('/pakaian/edit/{id}', [PakaianController::class, 'edit']);
 Route::post('/pakaian/edit/{id}', [PakaianController::class, 'update'])->name('pakaian.update');
 Route::get('/pakaian/hapus/{id}', [PakaianController::class, 'destroy']);
+Route::post('/pakaian/restock/{id}', [PakaianController::class, 'restok'])->name('pakaian.restock');
 
 Route::get('/check-stock', [PakaianController::class, 'checkStock'])->name('check.stock');
 

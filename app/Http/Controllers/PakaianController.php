@@ -138,6 +138,18 @@ class PakaianController extends Controller
     return redirect('/pakaian')->with('success', 'Data pakaian berhasil diperbarui');
 }
 
+    public function restok(Request $request, $id){
+
+        $data = [
+            'stok_barang' => $request->stok,
+        ];
+
+        PakaianModel::where('token', $id)->update($data);
+
+        return redirect('/dashboard')->with('success', 'Stok pakaian berhasil diperbarui');
+
+    }
+
 
 
 

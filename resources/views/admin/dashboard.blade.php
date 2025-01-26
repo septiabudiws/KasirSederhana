@@ -101,6 +101,39 @@
                             data-stok="{{ $get->stok_barang }}">
                             Checkout
                           </button>
+                          @if (Auth::user()->hasRole('admin') && $get->stok_barang < 10)
+                            <button class="btn btn-primary" type="button" data-bs-toggle="modal"
+                              data-bs-target="#staticBackdrop{{ $get->token }}">RESTOK</button>
+                            <!-- Modal -->
+                            <div class="modal fade " id="staticBackdrop{{ $get->token }}" data-bs-backdrop="static"
+                              data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+                              aria-hidden="true">
+                              <div class="modal-dialog">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Restok Produk {{ $get->nama_pakaian }}</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                      aria-label="Close"></button>
+                                  </div>
+                                  <div class="modal-body">
+                                    <form action="{{ route('pakaian.restock', $get->token) }}" method="POST">
+                                        @csrf
+                                        <div class="form-floating form-floating-outline">
+                                            <input type="number" class="form-control" value="{{ $get->stok_barang }}" id="floatingInput"
+                                            placeholder="Masukkan jumlah restok" name="stok">
+                                            <label for="floatingInput">Jumlah Restok</label>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                    </div>
+                                </div>
+                            </form>
+                              </div>
+                            </div>
+                          @endif
                         </td>
                       </tr>
                     @endforeach
